@@ -1,0 +1,62 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+    justify-content: center;
+}
+
+.card h1{
+    font-family: Jomhuria;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    color: #474444;
+}
+
+.card .links{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.card span{
+    margin: 1rem;
+    padding: 0.5rem 5rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.active{
+    box-shadow: 2px 5px 10px #0019FF3D;
+}
+
+.card form div{
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem;
+}
+
+.card form div input{
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #F4F4F4;
+    outline: none;
+    width: 20rem;
+}
+
+
+.card form button{
+    margin: 1rem auto;
+    padding: 0.5rem 5rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #A9BCFF;
+    color: #474444;
+    border: none;
+}
