@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Card from '../../UI/Card/Card'
 import styles from './Signup.module.css'
+import { BASE_URL } from '../../../constants'
 
 export default function Signup() {
     const [ formData, setFormData ] = useState({
@@ -9,9 +10,28 @@ export default function Signup() {
         password:'',
         conf_pass:''
     })
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         console.log(formData);
+        const {name, email, password, conf_pass} = formData;
+        try{
+            if(password !== conf_pass){
+                alert("Passwords do not match");
+                return;
+            }
+            const response = await fetch(`${BASE_URL}/auth/sign-up`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({name, email, password})
+            });
+            const data = await response.json();
+            console.log(data);
+            setFormData({name: '', email: '', password: '', conf_pass: ''});
+        }catch(err){
+            console.log(err);
+        }
     }
   return (
     <Card>
