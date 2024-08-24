@@ -1,0 +1,51 @@
+.container{
+    background-color: white;
+    border-right: #EDF5FE 1px solid;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    /* padding: 1rem 2rem; */
+    position: fixed;
+    font-weight: 600;
+}
+
+.links{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.logo h1{
+    font-family: Jomhuria;
+    font-size: 4rem;
+    color: #474444;
+    padding: 0 2rem;
+}
+
+.container span{
+    padding: 1em 2rem;
+    cursor: pointer;
+}
+
+.logout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+
+.logout hr{
+    width: 80%;
+    border: 1px solid #000000;
+    margin: 0.5rem 0;
+}
+
+.active{
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
