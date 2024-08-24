@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Card from '../../UI/Card/Card'
 import styles from './Signup.module.css'
 import { BASE_URL } from '../../../constants'
+import { useNavigate } from 'react-router-dom'
 
 export default function Signup() {
     const [ formData, setFormData ] = useState({
@@ -10,6 +11,7 @@ export default function Signup() {
         password:'',
         conf_pass:''
     })
+    const navigate = useNavigate();
     const handleSubmit = async(e) => {
         e.preventDefault();
         console.log(formData);
@@ -27,8 +29,7 @@ export default function Signup() {
                 body: JSON.stringify({name, email, password})
             });
             const data = await response.json();
-            console.log(data);
-            setFormData({name: '', email: '', password: '', conf_pass: ''});
+            navigate("/login");
         }catch(err){
             console.log(err);
         }
@@ -39,7 +40,7 @@ export default function Signup() {
             <h1>QUZZIE</h1>
             <div className={styles.links}>
                 <span className={styles.active}>Sign Up</span>
-                <span>Login</span>
+                <span onClick={() => navigate("/login")}>Login</span>
             </div>
             <form>
                 <div>
