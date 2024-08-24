@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from './Signup.module.css'
 import { useNavigate } from 'react-router-dom'
 import Card from '../../UI/Card/Card';
+import { AuthContext } from '../../../AuthContext/AuthContext';
 
 export default function Login() {
+    const { isAuthenticated, handleLogin } = useContext(AuthContext);
     const [ formData, setFormData ] = useState({
-        name: '',
         email:'',
-        password:'',
-        conf_pass:''
+        password:''
     })
     const navigate = useNavigate();
+
+
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        handleLogin(formData);
+    }
+
   return (
     <Card>
         <div className={styles.card}>
@@ -29,7 +36,7 @@ export default function Login() {
                     <input type="password" id='pass' name='password' value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} />
                 </div>
                 <div>
-                <button>Login</button>
+                <button onClick={handleSubmit}>Login</button>
                 </div>
             </form>
         </div>
