@@ -66,3 +66,15 @@ export const createQuiz = async (req, res) => {
     res.status(500).json({ message: "Internal server error", error: err.message });
   }
 };
+
+export const trendingQuiz = async(req, res)=>{
+  try{
+    const trendingQuizzes = (await Quiz.find().sort({views: -1})).filter((quiz)=>{
+      return quiz.views > 10;
+    });
+
+    res.status(200).json({quizzes: trendingQuizzes});
+  }catch(err){
+    res.status(500).json({ message: "Internal server error", error: err.message });
+  }
+}
