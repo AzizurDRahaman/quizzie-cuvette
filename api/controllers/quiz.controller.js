@@ -1,8 +1,9 @@
 import Quiz from "../models/quiz.model.js";
+import User from "../models/user.model.js";
 
 export const createQuiz = async (req, res) => {
   try {
-    const { name, questions, type } = req.body;
+    const { userId, name, questions, type } = req.body;
 
     if (!["mcq", "poll"].includes(type.toLowerCase())) {
       return res
@@ -48,7 +49,15 @@ export const createQuiz = async (req, res) => {
     });
 
     // Save the quiz to the database
-    await newQuiz.save();
+    const savedQuiz = await newQuiz.save();
+
+    const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        user.quizzes.push(savedQuiz._id);
+        await user.save();
 
     res
       .status(201)

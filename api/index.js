@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 
 import authRoutes from "./routes/auth.route.js";
 import quizRoutes from "./routes/quiz.route.js";
+import userRoutes from "./routes/user.route.js";
 
 import bodyParser from "body-parser";
 
@@ -37,6 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/quiz", quizRoutes);
+app.use("/api/user", userRoutes);
 
 app.get("/", (req, res) => {
     res.send("Hello World!");
