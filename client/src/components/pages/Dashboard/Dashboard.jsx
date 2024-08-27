@@ -13,6 +13,7 @@ export default function Dashboard() {
       total_questions: 0,
       total_views: 0
     });
+    const [ trending, setTrending ] = useState([]);
     const navigate = useNavigate();
     if(!isAuthenticated){
         navigate('/login');
@@ -37,7 +38,29 @@ export default function Dashboard() {
         setInfo(data);
       }
 
+      const fetchTrending = async()=>{
+        const response = await fetch(`${BASE_URL}/quiz/trending`,{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'authorization': `${localStorage.getItem("token")}`
+          }
+        });
+        const data = await response.json();
+        const formattedQuizzes = data.quizzes.map((quiz) => {
+          const date = new Date(quiz.createdAt);
+          const day = date.getDate().toString().padStart(2, '0'); // Ensure 2 digits for day
+          const month = date.toLocaleString('en-US', { month: 'short' }); // Short month name
+          const year = date.getFullYear();
+      
+          quiz.formattedDate = `${day} ${month}, ${year}`; // Format with comma
+          return quiz;
+        });
+        setTrending(formattedQuizzes);
+      }
+
       fetchInfo();
+      fetchTrending();
     },[]);
   return (
     <>
@@ -62,83 +85,17 @@ export default function Dashboard() {
         <div className={styles.trending}>
           <h1>Trending Quizes</h1>
           <div className={styles.capsuleList}>
-            <div className={styles.capsule}>
-              <div className={styles.header}>
-                <p>Quiz 1</p>
-                <span>667 <FaEye /></span>
+            {trending.map((quiz)=>{
+              return (
+              <div className={styles.capsule} key={quiz._id}>
+                <div className={styles.header}>
+                  <p>{quiz.name}</p>
+                  <span>{quiz.views} <FaEye /></span>
+                </div>
+                <p className={styles.info}>Created on: {quiz.formattedDate}</p>
               </div>
-              <p className={styles.info}>Created on: 26 Aug, 2023</p>
-            </div>
-            <div className={styles.capsule}>
-              <div className={styles.header}>
-                <p>Quiz 1</p>
-                <span>667 <FaEye /></span>
-              </div>
-              <p className={styles.info}>Created on: 26 Aug, 2023</p>
-            </div>
-            <div className={styles.capsule}>
-              <div className={styles.header}>
-                <p>Quiz 1</p>
-                <span>667 <FaEye /></span>
-              </div>
-              <p className={styles.info}>Created on: 26 Aug, 2023</p>
-            </div>
-            <div className={styles.capsule}>
-              <div className={styles.header}>
-                <p>Quiz 1</p>
-                <span>667 <FaEye /></span>
-              </div>
-              <p className={styles.info}>Created on: 26 Aug, 2023</p>
-            </div>
-            <div className={styles.capsule}>
-              <div className={styles.header}>
-                <p>Quiz 1</p>
-                <span>667 <FaEye /></span>
-              </div>
-              <p className={styles.info}>Created on: 26 Aug, 2023</p>
-            </div>
-            <div className={styles.capsule}>
-              <div className={styles.header}>
-                <p>Quiz 1</p>
-                <span>667 <FaEye /></span>
-              </div>
-              <p className={styles.info}>Created on: 26 Aug, 2023</p>
-            </div>
-            <div className={styles.capsule}>
-              <div className={styles.header}>
-                <p>Quiz 1</p>
-                <span>667 <FaEye /></span>
-              </div>
-              <p className={styles.info}>Created on: 26 Aug, 2023</p>
-            </div>
-            <div className={styles.capsule}>
-              <div className={styles.header}>
-                <p>Quiz 1</p>
-                <span>667 <FaEye /></span>
-              </div>
-              <p className={styles.info}>Created on: 26 Aug, 2023</p>
-            </div>
-            <div className={styles.capsule}>
-              <div className={styles.header}>
-                <p>Quiz 1</p>
-                <span>667 <FaEye /></span>
-              </div>
-              <p className={styles.info}>Created on: 26 Aug, 2023</p>
-            </div>
-            <div className={styles.capsule}>
-              <div className={styles.header}>
-                <p>Quiz 1</p>
-                <span>667 <FaEye /></span>
-              </div>
-              <p className={styles.info}>Created on: 26 Aug, 2023</p>
-            </div>
-            <div className={styles.capsule}>
-              <div className={styles.header}>
-                <p>Quiz 1</p>
-                <span>667 <FaEye /></span>
-              </div>
-              <p className={styles.info}>Created on: 26 Aug, 2023</p>
-            </div>
+              )
+            })}
           </div>
         </div>
       </section>

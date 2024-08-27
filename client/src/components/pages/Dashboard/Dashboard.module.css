@@ -71,9 +71,13 @@
     margin: 0;
 }
 .header p{
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.5rem;
     color: #474444;
+    white-space: nowrap;      /* Prevent the text from wrapping */
+    overflow: hidden;         /* Hide any overflow text */
+    text-overflow: ellipsis;  /* Add "..." at the end of the truncated text */
+    max-width: 150px;
 }
 
 .header span{
