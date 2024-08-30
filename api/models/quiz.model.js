@@ -25,6 +25,10 @@ const quizSchema = new mongoose.Schema({
             },
             answer:{
                 type: String
+            },
+            time:{
+                type: Number,
+                default: 0
             }
         }
     ],
