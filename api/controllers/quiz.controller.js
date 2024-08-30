@@ -14,18 +14,32 @@ export const createQuiz = async (req, res) => {
     }
 
     const formattedQuestions = questions.map((questionObj) => {
-      if (
-        !questionObj.question ||
-        !questionObj.options ||
-        questionObj.options.length === 0
-      ) {
-        throw new Error(
-          "Each question must have a question text and at least one option."
-        );
+      if (!questionObj.question) {
+        throw new Error("Each question must have a question text.");
       }
 
+      // Validate options
+      if (!questionObj.options || questionObj.options.length === 0) {
+        throw new Error("Each question must have at least one option.");
+      }
+
+      // Validate options based on type
+      questionObj.options.forEach((option) => {
+        if (questionObj.type === "t" && !option.text) {
+          throw new Error("Text options must have a text value.");
+        }
+        if (questionObj.type === "i" && !option.imageUrl) {
+          throw new Error("Image URL options must have an image URL.");
+        }
+        if (questionObj.type === "it" && (!option.text || !option.imageUrl)) {
+          throw new Error(
+            "Text and Image URL options must have both a text value and an image URL."
+          );
+        }
+      });
+
       // For MCQ, ensure that there is a correct answer
-      if (type.toLowerCase() === "mcq" && !questionObj.answer) {
+      if (type.toLowerCase() === "mcq" && questionObj.answer == null) {
         throw new Error("MCQ type questions must have a correct answer.");
       }
 
@@ -37,7 +51,9 @@ export const createQuiz = async (req, res) => {
       return {
         question: questionObj.question,
         options: questionObj.options,
+        type: questionObj.type,
         answer: questionObj.answer,
+        time: questionObj.time,
       };
     });
 
