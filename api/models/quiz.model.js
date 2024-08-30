@@ -24,7 +24,7 @@ const quizSchema = new mongoose.Schema({
                 default: 0,
             },
             answer:{
-                type: String
+                type: Number,
             },
             time:{
                 type: Number,
