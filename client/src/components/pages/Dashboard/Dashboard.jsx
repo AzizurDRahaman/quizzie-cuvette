@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
 import styles from './Dashboard.module.css'
 import { BASE_URL } from '../../../constants';
+import { QuizContext } from '../../../QuizContext/QuizContext';
 
 export default function Dashboard() {
     const {isAuthenticated} = useContext(AuthContext);
@@ -14,28 +15,26 @@ export default function Dashboard() {
       total_views: 0
     });
     const [ trending, setTrending ] = useState([]);
+    const { quiz } = useContext(QuizContext);
     const navigate = useNavigate();
     if(!isAuthenticated){
         navigate('/login');
     }
 
     useEffect(() => {
-      const fetchInfo = async()=>{
-        const response = await fetch(`${BASE_URL}/user/info/${localStorage.getItem("userId")}`,{
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'authorization': `${localStorage.getItem("token")}`
-          }
-        });
-
-        const data = await response.json();
-
-        if(data.total_views>999){
-          data.total_views = (Math.floor(data.total_views / 100) / 10).toFixed(1) + "K";
+      const fetchInfo = ()=>{
+        const total_quiz = quiz.length;
+        let total_questions = 0;
+        let total_views = 0;
+        for(const q of quiz) {
+            total_questions += q.questions.length;
+            total_views += q.views;
+        }
+        if(total_views>999){
+            total_views = (Math.floor(total_views / 100) / 10).toFixed(1) + "K";
         }
 
-        setInfo(data);
+        setInfo({total_quiz, total_questions, total_views});
       }
 
       const fetchTrending = async()=>{
@@ -61,7 +60,7 @@ export default function Dashboard() {
 
       fetchInfo();
       fetchTrending();
-    },[]);
+    },[quiz]);
   return (
     <>
       <section>
