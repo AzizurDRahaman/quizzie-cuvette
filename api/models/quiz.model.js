@@ -12,8 +12,12 @@ const quizSchema = new mongoose.Schema({
                 required: true,
             },
             options:[{
-                type: String,
-                required: true,
+                text: {
+                    type: String
+                },
+                imageUrl: {
+                    type: String
+                },
             }],
             type:{
                 type: String,
