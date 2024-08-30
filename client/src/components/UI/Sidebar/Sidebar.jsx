@@ -30,8 +30,8 @@ export default function Sidebar() {
             </div>
             <div className={styles.links}>
                 <span onClick={() => navigate('/')} className={location.pathname === "/" ? styles.active : ""}>Dashboard</span>
-                <span onClick={() => navigate('/analytics')} 
-                className={location.pathname === "/analytics" ? styles.active : ""}>Analytics</span>
+                <span onClick={() => navigate('/settings')} 
+                className={location.pathname === "/settings" ? styles.active : ""}>Analytics</span>
                 <span onClick={handleOpen}>Create Quiz</span>
             </div>
             <div className={styles.logout}>
