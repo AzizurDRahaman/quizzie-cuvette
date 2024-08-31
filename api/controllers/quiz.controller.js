@@ -101,15 +101,21 @@ export const quizDetails = async(req, res)=>{
     const quiz = await Quiz.findById(quizId);
     const quizDetails = [];
     for(const q of quiz.questions){
+      const options = q.options;
+      const count = [];
+      for(const option of options){
+        count.push(option.count)
+      }
       let data={
         question: q.question,
         views: q.views,
         correctAttempts: q.correctAttempts,
         incorrectAttempts: q.views - q.correctAttempts,
+        count: count
       }
       quizDetails.push(data);
     }
-    res.status(200).json({createdOn: quiz.createdAt, views: quiz.views, quizDetails});
+    res.status(200).json({createdAt: quiz.createdAt, views: quiz.views, name: quiz.name, type: quiz.type, quizDetails});
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error: error.message });
   }

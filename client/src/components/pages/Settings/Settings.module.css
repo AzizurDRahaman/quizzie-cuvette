@@ -67,3 +67,68 @@
 .table a{
     color: black;
 }
+
+.heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin-top: 2rem;
+}
+
+.heading h2{
+    font-size: 2rem;
+    color: #5076FF;
+}
+
+.heading div{
+    display: flex;
+    flex-direction: column;
+}
+.heading p{
+    margin: 0;
+    color: #FF5D01;
+    font-weight: 500;
+}
+
+.detail{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* align-items: flex-start; */
+    width: 90%;
+}
+
+.detail h2{
+    font-size: 1.7rem;
+    font-weight: 400;
+}
+
+.detail .body{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.detail .body div{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 0.5rem;
+}
+
+.detail .body div p{
+    margin: 0;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.detail hr{
+    width: 100%;
+    border: 1px solid #D7D7D7;
+    margin-top: 2rem;
+}

@@ -46,7 +46,7 @@ export default function Settings() {
                         <td>{quiz.formattedDate}</td>
                         <td>{quiz.views}</td>
                         <td><button><FaRegEdit /></button><button><RiDeleteBin5Fill /></button> <button><IoMdShare /></button> </td>
-                        <td><a href={`/analysis/${quiz._id}`}>Question wise analysis</a></td>
+                        <td><a href={`/settings/${quiz._id}`}>Question wise analysis</a></td>
                     </tr>
                 ))}
             </tbody>

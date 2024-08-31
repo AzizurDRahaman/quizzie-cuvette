@@ -18,6 +18,10 @@ const quizSchema = new mongoose.Schema({
                 imageUrl: {
                     type: String
                 },
+                count:{
+                    type: Number,
+                    default: 0
+                }
             }],
             type:{
                 type: String,
