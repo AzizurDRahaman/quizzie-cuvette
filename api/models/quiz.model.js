@@ -27,6 +27,10 @@ const quizSchema = new mongoose.Schema({
                 type: Number,
                 default: 0,
             },
+            correctAttempts: {
+                type: Number,
+                default: 0
+            },
             answer:{
                 type: Number,
             },

@@ -94,3 +94,23 @@ export const trendingQuiz = async(req, res)=>{
     res.status(500).json({ message: "Internal server error", error: err.message });
   }
 }
+
+export const quizDetails = async(req, res)=>{
+  try {
+    const { quizId } = req.params;
+    const quiz = await Quiz.findById(quizId);
+    const quizDetails = [];
+    for(const q of quiz.questions){
+      let data={
+        question: q.question,
+        views: q.views,
+        correctAttempts: q.correctAttempts,
+        incorrectAttempts: q.views - q.correctAttempts,
+      }
+      quizDetails.push(data);
+    }
+    res.status(200).json({createdOn: quiz.createdAt, views: quiz.views, quizDetails});
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+}
