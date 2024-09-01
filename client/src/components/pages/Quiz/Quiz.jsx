@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./Quiz.module.css";
 import { BASE_URL } from "../../../constants.js";
-import cup from "../../../assets/Images/Cup.png";
+// import cup from "../../../assets/Images/Cup.png";
 
 export default function Quiz() {
   const { quizId } = useParams();
@@ -135,7 +135,7 @@ export default function Quiz() {
                 <>
                   {quiz.type === "mcq" &&<div className={styles.result}>
                     <h2>Congrats Quiz is Completed</h2>
-                    <img src={cup} />
+                    <img src="https://s3-alpha-sig.figma.com/img/f47f/6d98/a013b07f931834dfba3cd6ddc9130436?Expires=1725840000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=hqgWGAHO1eoSVRrHiuP4GggRnoZT5~hNNRliyDBS~3Xsjz9uvHvcwBMIAkUjDOvR1X0Sz4IL17PmHvFPEojOw713O3YL~wR7KC6iwNtwC4RTZWwQRnbm10-GEqyFQ5S88k~2Ts6J8HekuikNXTRAQiCZUvQJv7hN19isOMyXlPY6SAp43wmE3a24Am~weZPVSs33iv3ADjGRVWxZdvkNSsu--LyWF4chWOYam18dgGqEjUE0~JoBOO5vraDdoe45YymaUwl88H13Oa-VN2OSR5m2RwrUPwJaHFv19cOgSUx1A2~Ma0SDfG4755t0SnAa69u2lp5RdRuHY1FtGfgToQ__" />
                     <h2>Your Score is <span>{correctAnswers}/{quiz.questions.length}</span></h2>
                   </div>}
                   {quiz.type === "poll" && <div className={styles.result}>
