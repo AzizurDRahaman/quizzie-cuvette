@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./Quiz.module.css";
 import { BASE_URL } from "../../../constants.js";
-import cup from "../../../assets/Images/cup.png";
+import cup from "../../../assets/Images/Cup.png";
 
 export default function Quiz() {
   const { quizId } = useParams();
