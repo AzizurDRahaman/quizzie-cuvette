@@ -153,15 +153,44 @@ export const answerToQuestion = async(req, res)=>{
     const quiz = await Quiz.findById(quizId);
     const question = quiz.questions[index];
     let isCorrect = false;
-    if(question.answer === answer){
-      quiz.correctAttempts+=1;
-      isCorrect = true;
-      await quiz.save();
+    if (quiz.type === "mcq") {
+      if (question.answer === answer) {
+        question.correctAttempts += 1;
+        isCorrect = true;
+      }
+    } else if (quiz.type === "poll") {
+      // Increase the count for the selected option in a poll type quiz
+      question.options[answer].count += 1;
     }
+
+    await quiz.save();
 
     res.status(200).json({isCorrect});
 
   }catch(error){
     res.status(500).json({ message: "Internal server error", error: err.message});
+  }
+}
+
+export const deleteQuiz = async(req, res)=>{
+  try {
+    const { quizId } = req.params;
+    const { userId } = req.body;
+    const quiz = await Quiz.findByIdAndDelete(quizId);
+    console.log(typeof(quizId));
+    
+    if (quiz) {
+      res.status(200).json({ message: "Quiz deleted successfully" });
+
+      const user = await User.findById(userId);
+      if (user) {
+        user.quizzes = user.quizzes.filter((q) => q.toString() !== quizId);
+        await user.save();
+      }
+    } else {
+      res.status(404).json({ message: "Quiz not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error: error.message });
   }
 }

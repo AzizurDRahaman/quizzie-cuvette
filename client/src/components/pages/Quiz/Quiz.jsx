@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./Quiz.module.css";
 import { BASE_URL } from "../../../constants.js";
-// import cup from "../../../assets/Images/Cup.png";
 
 export default function Quiz() {
   const { quizId } = useParams();
@@ -126,7 +125,7 @@ export default function Quiz() {
                   ))}
                 </div>
                 <div className={styles.footer}>
-                  <button onClick={handleSubmit}>Next</button>
+                  <button onClick={handleSubmit}>{ index === quiz.questions.length - 1 ? "Submit" : "Next"}</button>
                 </div>
               </>
             )}

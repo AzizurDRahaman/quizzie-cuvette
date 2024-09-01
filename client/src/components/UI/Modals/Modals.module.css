@@ -164,3 +164,25 @@
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
+
+.content{
+  display: flex;
+  flex-direction: column;
+}
+
+.content button{
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 10rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.content button:nth-child(2){
+  background-color: red;
+  color: white;
+}

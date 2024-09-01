@@ -1,5 +1,5 @@
 import express from "express";
-import { addViews, answerToQuestion, createQuiz, getQuizQuestions, quizDetails, trendingQuiz } from "../controllers/quiz.controller.js";
+import { addViews, answerToQuestion, createQuiz, deleteQuiz, getQuizQuestions, quizDetails, trendingQuiz } from "../controllers/quiz.controller.js";
 import { verifyAuth } from "../middleware/verifyAuth.js";
 
 const router = express.Router();
@@ -14,5 +14,6 @@ router.get("/details/:quizId", verifyAuth, quizDetails);
 router.get("/:quizId", getQuizQuestions);
 router.patch("/addView/:quizId", addViews);
 router.patch("/answer/:quizId", answerToQuestion);
+router.delete("/delete/:quizId", verifyAuth, deleteQuiz);
 
 export default router;
