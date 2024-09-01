@@ -120,3 +120,15 @@ export const quizDetails = async(req, res)=>{
     res.status(500).json({ message: "Internal server error", error: error.message });
   }
 }
+
+export const getQuizQuestions = async(req, res)=>{
+  try {
+    const { quizId } = req.params;
+    const quiz = await Quiz.findById(quizId);
+    quiz.views++;
+    await quiz.save();
+    res.status(200).json({questions: quiz.questions, type: quiz.type});
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+}
