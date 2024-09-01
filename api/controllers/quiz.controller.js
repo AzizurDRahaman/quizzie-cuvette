@@ -125,10 +125,43 @@ export const getQuizQuestions = async(req, res)=>{
   try {
     const { quizId } = req.params;
     const quiz = await Quiz.findById(quizId);
-    quiz.views++;
+    quiz.views+=1;
     await quiz.save();
     res.status(200).json({questions: quiz.questions, type: quiz.type});
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+}
+
+export const addViews = async(req, res)=>{
+  try {
+    const { quizId } = req.params;
+    const quiz = await Quiz.findById(quizId);
+    const { index } = req.body;
+    quiz.questions[index].views+=1;
+    await quiz.save();
+    res.status(200).json({message: "Views added successfully"});
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+}
+
+export const answerToQuestion = async(req, res)=>{
+  try {
+    const { quizId } = req.params;
+    const { index, answer } = req.body;
+    const quiz = await Quiz.findById(quizId);
+    const question = quiz.questions[index];
+    let isCorrect = false;
+    if(question.answer === answer){
+      quiz.correctAttempts+=1;
+      isCorrect = true;
+      await quiz.save();
+    }
+
+    res.status(200).json({isCorrect});
+
+  }catch(error){
+    res.status(500).json({ message: "Internal server error", error: err.message});
   }
 }
